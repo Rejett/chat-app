@@ -1,5 +1,6 @@
 # Projeto FullStack: um Aplicativo de Chat em Tempo Real | JWT, Socket.io, Auth, MongoDB
 
+![Banner do Projeto](./banner.png)
 
 ## Algumas Funcionalidades:
 
