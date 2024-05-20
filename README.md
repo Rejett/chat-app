@@ -10,8 +10,7 @@
 🚀 **Status de usuário online** (Socket.io e React Context)  
 👌 **Gerenciamento de estado global** com Zustand  
 🐞 **Tratamento de erros** tanto no servidor quanto no cliente  
-⭐ **Implantação no final** como um profissional e de graça!  
-⏳ E muito mais!
+⭐ **Implantação no final** deploy completo
 
 ## Configuração do arquivo .env
 
