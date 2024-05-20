@@ -14,6 +14,7 @@ const protectRoute = async (req, res, next) => {
         .status(401)
         .json({ error: "Invalid token, authorization denied" });
     }
+
     const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
@@ -24,7 +25,10 @@ const protectRoute = async (req, res, next) => {
     next();
   } catch (error) {
     console.log("Error in protectRoute middleware", error);
-    res.status(500).json({ error: "Internal Server Error" });
+
+    if (!res.headersSent) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
 };
 

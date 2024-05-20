@@ -43,6 +43,7 @@ export const signup = async (req, res) => {
         gender: newUser.gender,
         profilePic: newUser.profilePic,
       });
+      return;
     } else {
       res.status(400).json({ error: "Invalid user data" });
     }
@@ -73,6 +74,7 @@ export const login = async (req, res) => {
       username: user.username,
       profilePic: user.profilePic,
     });
+    return;
   } catch (error) {
     console.log("Error in login controller : " + error.message);
     res.status(500).json({ error: "Internal Server Eerror" });
@@ -83,6 +85,7 @@ export const logout = (req, res) => {
   try {
     res.clearCookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
+    return;
   } catch (error) {
     console.log("Error in logout controller: " + error.message);
     res.status(500).json({ error: "Internal Server Error" });

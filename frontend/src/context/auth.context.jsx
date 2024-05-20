@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
 
 // Defina um valor padrão para o contexto
@@ -11,11 +12,12 @@ export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 
-// eslint-disable-next-line react/prop-types
 export const AuthContextProvider = ({ children }) => {
+  const storedAuthUser = localStorage.getItem("chat-user");
   const [authUser, setAuthUser] = useState(
-    localStorage.getItem("chat-user") || null
+    storedAuthUser ? JSON.parse(storedAuthUser) : null
   );
+
   return (
     <AuthContext.Provider value={{ authUser, setAuthUser }}>
       {children}

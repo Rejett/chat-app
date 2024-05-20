@@ -27,14 +27,17 @@ export const sendMessage = async (req, res) => {
       conversation.messages.push(newMessage._id);
     }
 
-    //SOCKET IO FUNCTIONALITY WIIL GO HERE
+    // SOCKET IO FUNCTIONALITY WILL GO HERE
 
     await Promise.all([conversation.save(), newMessage.save()]);
 
     res.status(201).send(newMessage);
+    return; // Assegure-se de retornar para evitar execução adicional
   } catch (error) {
     console.log("error in sendMessage controller: ", error);
-    res.status(500).json({ error: "internal server error" });
+    if (!res.headersSent) {
+      res.status(500).json({ error: "internal server error" });
+    }
   }
 };
 
@@ -47,13 +50,19 @@ export const getMessages = async (req, res) => {
       participants: { $all: [sendId, userToChatId] },
     }).populate("messages");
 
-    if (!conversation) res.status(200).json([]);
+    if (!conversation) {
+      res.status(200).json([]);
+      return; // Assegure-se de retornar para evitar execução adicional
+    }
 
-    const messages = conversation.messages;
+    const messages = conversation?.messages;
 
     res.status(200).json(messages);
+    return; // Assegure-se de retornar para evitar execução adicional
   } catch (error) {
-    console.log("error in sendMessage controller: ", error);
-    res.status(500).json({ error: "internal server error" });
+    console.log("error in getMessages controller: ", error);
+    if (!res.headersSent) {
+      res.status(500).json({ error: "internal server error" });
+    }
   }
 };

@@ -4,7 +4,7 @@ import { useState } from "react";
 import useSignup from "../../hooks/useSignup";
 
 export default function Signup() {
-  const { signup } = useSignup();
+  const { loading, signup } = useSignup();
   const [inputs, setInputs] = useState({
     fullName: "",
     username: "",
@@ -103,7 +103,13 @@ export default function Signup() {
             Já Possui uma conta?
           </Link>
           <div>
-            <button className="btn btn-block btn-sm">Cadastre-se</button>
+            <button disabled={loading} className="btn btn-block btn-sm">
+              {loading ? (
+                <span className="loading loading-spinner" />
+              ) : (
+                "Cadastre-se"
+              )}
+            </button>
           </div>
         </form>
       </div>
